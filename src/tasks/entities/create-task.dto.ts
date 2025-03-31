@@ -1,4 +1,4 @@
-import { IsString, IsNumber } from 'class-validator';
+import { IsString, IsNumber} from 'class-validator';
 
 export class CreateTaskDto {
     @IsString()
@@ -8,5 +8,8 @@ export class CreateTaskDto {
     description: string;
 
     @IsNumber()
-    kategorija: number;
+    kategorijaId: number;
+
+    @IsNumber({maxDecimalPlaces: 2})
+    cena: number;
 }

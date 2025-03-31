@@ -7,6 +7,7 @@ import { Kategorija } from './entities/kategorija';
 @Module({
   imports: [TypeOrmModule.forFeature([Kategorija])],
   controllers: [KategorijeController],
-  providers: [KategorijeService]
+  providers: [KategorijeService],
+  exports: [KategorijeService]
 })
 export class KategorijeModule {}

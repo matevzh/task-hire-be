@@ -22,9 +22,12 @@ export class Task {
     createdAt: Date;
     @UpdateDateColumn()
     updatedAt: Date;
+    @Column('decimal')
+    cena: number;
 
-    @ManyToOne(() => Kategorija, (kategorija) => kategorija.tasks, { nullable: false })
-    @JoinColumn({ name: 'kategorija_id' })
+
+    @ManyToOne(() => Kategorija, (kategorija) => kategorija.tasks)
+    @JoinColumn({ name: 'kategorijaId' })
     kategorija: Kategorija;
 
     @ManyToOne(() => User, (user) => user.tasks, { nullable: false })

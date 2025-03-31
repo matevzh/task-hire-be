@@ -24,11 +24,19 @@ export class KategorijeService {
     }
 
     async update(id: number, title: string): Promise<Kategorija> {
-        const kategorija = await this.kategorijaRepository.findOne({ where: { kategorija_id: id } });
+        const kategorija = await this.kategorijaRepository.findOne({ where: { id: id } });
         if (!kategorija) {
             throw new NotFoundException('Category not found');
         }
         kategorija.title = title;
         return await this.kategorijaRepository.save(kategorija);
+    }
+
+    async findById(id: number): Promise<Kategorija> {
+        const kategorija = await this.kategorijaRepository.findOne({ where: { id: id } });
+        if (!kategorija) {
+            throw new NotFoundException('Category not found');
+        }
+        return kategorija;
     }
 }

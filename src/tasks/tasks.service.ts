@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { CreateTaskDto } from './entities/create-task.dto';
 import { UpdateTaskDto } from './entities/update-task.dto';
 import { UsersService } from '../users/users.service';
+import { KategorijeService } from 'src/kategorije/kategorije.service';
 
 @Injectable()
 export class TasksService {
@@ -12,6 +13,7 @@ constructor(
     @InjectRepository(Task)
     private readonly taskRepository: Repository<Task>,
     private readonly userService: UsersService,
+    private readonly kategorijaService: KategorijeService,
 ) {}
 
     async findAll(): Promise<Task[]> {
@@ -29,12 +31,13 @@ constructor(
         return task;
     }   
 
-    async create(createTaskDto: CreateTaskDto, userId: number): Promise<Task> {
+    async create(createTaskDto: CreateTaskDto, userId: number, kategorijaId: number): Promise<Task> {
         const user = await this.userService.findById(userId);
+        const kategorija = await this.kategorijaService.findById(kategorijaId);
         if (!user) {
             throw new NotFoundException('User not found');
         }
-        const newTask = this.taskRepository.create({...createTaskDto, user});
+        const newTask = this.taskRepository.create({...createTaskDto, kategorija, user});
         return this.taskRepository.save(newTask);
     }
 

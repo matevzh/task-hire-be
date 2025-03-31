@@ -1,6 +1,7 @@
 import {
     IsOptional,
     IsString,
+    IsNumber,
 } from 'class-validator';
 
 export class UpdateTaskDto {
@@ -13,6 +14,10 @@ export class UpdateTaskDto {
     description?: string;
 
     @IsOptional()
-    @IsString()
-    category_id?: number;
+    @IsNumber({maxDecimalPlaces: 2})
+    cena?: number;
+
+    @IsOptional()
+    @IsNumber()
+    kategorijaId?: number;
 }
