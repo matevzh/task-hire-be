@@ -23,7 +23,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/tasks" element={<Tasks />} />
               
-              {/* Protected routes */}
+              {/* Private routes */}
               <Route path="/tasks/new" element={<NewTask />} />
               <Route path="/tasks/:id/edit" element={<EditTask />} />
               <Route path="/profile" element={<Profile />} />

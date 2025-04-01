@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+<<<<<<< HEAD
 import { Logger } from '@nestjs/common';
 
 async function bootstrap() {
@@ -25,5 +26,13 @@ async function bootstrap() {
   
   await app.listen(process.env.PORT ?? 3000);
   logger.log(`Application is running on: ${await app.getUrl()}`);
+=======
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  app.useGlobalPipes(new ValidationPipe());
+  app.enableCors();
+  await app.listen(process.env.PORT ?? 3000);
+>>>>>>> 696753dd277e2d350d4d760de274cb691df83110
 }
 bootstrap();

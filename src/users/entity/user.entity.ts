@@ -11,8 +11,11 @@ export class User {
     @Column()
     password: string;
     @Column()
+<<<<<<< HEAD
     username: string;
     @Column()
+=======
+>>>>>>> 696753dd277e2d350d4d760de274cb691df83110
     firstName: string;
     @Column()
     lastName: string;

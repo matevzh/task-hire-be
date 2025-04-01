@@ -9,6 +9,7 @@ import { KategorijeService } from 'src/kategorije/kategorije.service';
 
 @Injectable()
 export class TasksService {
+<<<<<<< HEAD
     constructor(
         @InjectRepository(Task)
         private readonly taskRepository: Repository<Task>,
@@ -27,12 +28,29 @@ export class TasksService {
 
     async findOne(id: number): Promise<Task> {
         console.log('Tasks Service - Finding task with ID:', id);
+=======
+constructor(
+    @InjectRepository(Task)
+    private readonly taskRepository: Repository<Task>,
+    private readonly userService: UsersService,
+    private readonly kategorijaService: KategorijeService,
+) {}
+
+    async findAll(): Promise<Task[]> {
+        return this.taskRepository.find();
+    }
+
+    async findOne(id: number): Promise<Task> {
+>>>>>>> 696753dd277e2d350d4d760de274cb691df83110
         const task = await this.taskRepository.findOne({
             where: { id },
             relations: ['kategorija'],
         });
+<<<<<<< HEAD
         console.log('Tasks Service - Found task:', JSON.stringify(task, null, 2));
         
+=======
+>>>>>>> 696753dd277e2d350d4d760de274cb691df83110
         if (!task) {
             throw new NotFoundException('Task not found');
         }
@@ -50,6 +68,7 @@ export class TasksService {
     }
 
     async update(id: number, updateTaskDto: UpdateTaskDto): Promise<Task> {
+<<<<<<< HEAD
         const task = await this.taskRepository.findOne({ 
             where: { id: id },
             relations: ['kategorija']
@@ -76,12 +95,24 @@ export class TasksService {
 
         // Save the updated task
         const updatedTask = await this.taskRepository.save(task);
+=======
+        const task = await this.taskRepository.findOne({ where: { id: id } });
+        if (!task) {
+            throw new NotFoundException('Task ne obstaja');
+        }
+        await this.taskRepository.update(id, updateTaskDto);
+        const updatedTask = await this.taskRepository.findOne({ where: { id: id } });
+        if (!updatedTask) {
+            throw new NotFoundException('Task not found after update');
+        }
+>>>>>>> 696753dd277e2d350d4d760de274cb691df83110
         return updatedTask;
     }
 
     async delete(id: number): Promise<void> {
         await this.taskRepository.delete(id);
     }
+<<<<<<< HEAD
 
     async findByCategory(categoryId: number): Promise<Task[]> {
         console.log('Tasks Service - Finding tasks for category:', categoryId);
@@ -138,4 +169,6 @@ export class TasksService {
             throw error;
         }
     }
+=======
+>>>>>>> 696753dd277e2d350d4d760de274cb691df83110
 }

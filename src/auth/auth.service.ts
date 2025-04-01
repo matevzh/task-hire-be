@@ -1,8 +1,12 @@
+<<<<<<< HEAD
 /**
  * Registracija, login in JWT
  * Metode za validacijo in generiranje JWT tokena
  */
 import { Injectable, UnauthorizedException, Logger } from "@nestjs/common";
+=======
+import { Injectable, UnauthorizedException } from "@nestjs/common";
+>>>>>>> 696753dd277e2d350d4d760de274cb691df83110
 import { UsersService } from "../users/users.service";
 import { UserRegisterDto } from "./user-register.dto";
 import { User } from "../users/entity/user.entity";
@@ -12,6 +16,7 @@ import { JwtService } from "@nestjs/jwt";
 
 @Injectable()
 export class AuthService {
+<<<<<<< HEAD
     private readonly logger = new Logger(AuthService.name);
 
     constructor(private readonly userService: UsersService,
@@ -133,4 +138,34 @@ export class AuthService {
             throw new Error('Internal server error during login');
         }
     }
+=======
+    constructor(private readonly userService: UsersService,
+        private readonly jwtService: JwtService) {}
+
+    async register(userRegisterDto: UserRegisterDto): Promise<User> {
+    return await this.userService.create(userRegisterDto);
+    }
+
+    async validateUser(userLoginDto: UserLoginDto) {
+        const user = await this.userService.findByEmail(userLoginDto.email);
+        if (!user) {
+            throw new UnauthorizedException('Bad login');
+        }
+        if (await bcrypt.compare(userLoginDto.password, user.password)) {
+            return user;
+        }
+        throw new UnauthorizedException('Bad login');
+    }
+
+    async login(userLoginDto: UserLoginDto) {
+        const user = await this.validateUser(userLoginDto);
+        const payload = {
+            email: user.email,
+            sub: user.id,
+        }   
+    return {
+        access_token: this.jwtService.sign(payload)
+    };
+} 
+>>>>>>> 696753dd277e2d350d4d760de274cb691df83110
 }
