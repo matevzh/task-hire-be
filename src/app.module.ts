@@ -14,7 +14,6 @@ import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-<<<<<<< HEAD
     // Load environment variables
     ConfigModule.forRoot(),
     
@@ -35,24 +34,6 @@ import { ConfigModule } from '@nestjs/config';
     TasksModule,  
     KategorijeModule,
   ],
-=======
-    ConfigModule.forRoot({ isGlobal: true }),
-    TypeOrmModule.forRoot({
-    type: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: 'postgres',
-    password: 'postgres',
-    database: 'taskhire',
-    entities: [User, Task, Kategorija],
-    synchronize: true,
-  }),
-  UsersModule,
-  AuthModule,
-  TasksModule,
-  KategorijeModule,
-],
->>>>>>> 696753dd277e2d350d4d760de274cb691df83110
   controllers: [AppController],
   providers: [AppService],
 })

@@ -12,7 +12,6 @@ import { JwtService } from "@nestjs/jwt";
 
 @Injectable()
 export class AuthService {
-<<<<<<< HEAD
     private readonly logger = new Logger(AuthService.name);
 
     constructor(private readonly userService: UsersService,
@@ -21,7 +20,7 @@ export class AuthService {
     async register(userRegisterDto: UserRegisterDto) {
         try {
             this.logger.log('Creating new user...');
-            // Create the user
+            // Create  user
             const user = await this.userService.create(userRegisterDto);
             this.logger.log('User created:', user);
             
@@ -34,7 +33,7 @@ export class AuthService {
             const token = this.jwtService.sign(payload);
             this.logger.log('Token created:', token);
 
-            // Return user data with token
+            // User data z tokenom
             const response = {
                 data: {
                     id: user.id,
@@ -52,11 +51,11 @@ export class AuthService {
             return response;
         } catch (error) {
             this.logger.error('Registration error:', error);
-            // If the error is a duplicate email
+            // duplicate email error
             if (error.code === '23505') { // PostgreSQL unique violation code
                 throw new Error('Email already exists');
             }
-            // If the error is a duplicate username
+            // duplicate username error
             if (error.code === '23505' && error.detail?.includes('username')) {
                 throw new Error('Username already exists');
             }
@@ -67,6 +66,7 @@ export class AuthService {
     async validateUser(userLoginDto: UserLoginDto) {
         try {
             this.logger.log('Validating user:', userLoginDto.email);
+            //find user by email
             const user = await this.userService.findByEmail(userLoginDto.email);
             
             if (!user) {
@@ -99,15 +99,16 @@ export class AuthService {
             this.logger.log('Attempting login for user:', userLoginDto.email);
             const user = await this.validateUser(userLoginDto);
             this.logger.log('User validated successfully:', user.id);
-
+            // create payload
             const payload = {
                 email: user.email,
                 sub: user.id,
             };
             this.logger.log('Creating token with payload:', payload);
-            
+            // create token
             let token: string;
             try {
+                // sign payload
                 token = this.jwtService.sign(payload);
                 this.logger.log('Token created successfully');
             } catch (jwtError) {
@@ -115,11 +116,13 @@ export class AuthService {
                 throw new Error('Failed to create authentication token');
             }
 
+            // create response
             const response = {
                 access_token: token,
                 user: user
             };
             this.logger.log('Login successful, returning response');
+            // return response
             return response;
         } catch (error) {
             this.logger.error('Login error details:', {
@@ -134,34 +137,4 @@ export class AuthService {
             throw new Error('Internal server error during login');
         }
     }
-=======
-    constructor(private readonly userService: UsersService,
-        private readonly jwtService: JwtService) {}
-
-    async register(userRegisterDto: UserRegisterDto): Promise<User> {
-    return await this.userService.create(userRegisterDto);
-    }
-
-    async validateUser(userLoginDto: UserLoginDto) {
-        const user = await this.userService.findByEmail(userLoginDto.email);
-        if (!user) {
-            throw new UnauthorizedException('Bad login');
-        }
-        if (await bcrypt.compare(userLoginDto.password, user.password)) {
-            return user;
-        }
-        throw new UnauthorizedException('Bad login');
-    }
-
-    async login(userLoginDto: UserLoginDto) {
-        const user = await this.validateUser(userLoginDto);
-        const payload = {
-            email: user.email,
-            sub: user.id,
-        }   
-    return {
-        access_token: this.jwtService.sign(payload)
-    };
-} 
->>>>>>> 696753dd277e2d350d4d760de274cb691df83110
 }

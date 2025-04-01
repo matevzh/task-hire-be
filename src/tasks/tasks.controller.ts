@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 /**
  * Tasks controller za HTTP requeste
  */
-=======
->>>>>>> 696753dd277e2d350d4d760de274cb691df83110
 import {
     Body,
     Controller,
@@ -13,16 +10,12 @@ import {
     Patch,
     Post,
     UseGuards,
-<<<<<<< HEAD
     Query,
     ClassSerializerInterceptor,
     UseInterceptors,
     Request,
     SerializeOptions,
     Logger,
-=======
-    Request,
->>>>>>> 696753dd277e2d350d4d760de274cb691df83110
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Task } from './entities/task';
@@ -31,7 +24,6 @@ import { UpdateTaskDto } from './entities/update-task.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('tasks')
-<<<<<<< HEAD
 @UseInterceptors(ClassSerializerInterceptor)
 @SerializeOptions({ strategy: 'excludeAll' })
 export class TasksController {
@@ -89,15 +81,6 @@ export class TasksController {
         const tasks = await this.taskService.findAll();
         console.log('Tasks Controller - All tasks:', JSON.stringify(tasks, null, 2));
         return tasks;
-=======
-@UseGuards(JwtAuthGuard)
-export class TasksController {
-    constructor(private readonly taskService: TasksService) {}
-
-    @Get()
-    async findAll(): Promise<Task[]> {
-        return this.taskService.findAll();
->>>>>>> 696753dd277e2d350d4d760de274cb691df83110
     }
 
     @Get(':id')
@@ -106,10 +89,7 @@ export class TasksController {
     }
 
     @Post()
-<<<<<<< HEAD
     @UseGuards(JwtAuthGuard)
-=======
->>>>>>> 696753dd277e2d350d4d760de274cb691df83110
     async create(
         @Body() createTaskDto: CreateTaskDto,
         @Request() req,
@@ -118,29 +98,20 @@ export class TasksController {
     }
 
     @Patch(':id')
-<<<<<<< HEAD
     @UseGuards(JwtAuthGuard)
-=======
->>>>>>> 696753dd277e2d350d4d760de274cb691df83110
     async update(
         @Param('id') id: string,
         @Body() updateTaskDto: UpdateTaskDto,
     ): Promise<Task> {
-<<<<<<< HEAD
         this.logger.log('Updating task:', {
             id,
             updateData: updateTaskDto
         });
-=======
->>>>>>> 696753dd277e2d350d4d760de274cb691df83110
         return this.taskService.update(+id, updateTaskDto);
     }
 
     @Delete(':id')
-<<<<<<< HEAD
     @UseGuards(JwtAuthGuard)
-=======
->>>>>>> 696753dd277e2d350d4d760de274cb691df83110
     async delete(@Param('id') id: string): Promise<void> {
         this.taskService.delete(+id);
     }
