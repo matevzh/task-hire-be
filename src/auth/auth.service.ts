@@ -1,12 +1,8 @@
-<<<<<<< HEAD
 /**
  * Registracija, login in JWT
  * Metode za validacijo in generiranje JWT tokena
  */
 import { Injectable, UnauthorizedException, Logger } from "@nestjs/common";
-=======
-import { Injectable, UnauthorizedException } from "@nestjs/common";
->>>>>>> 696753dd277e2d350d4d760de274cb691df83110
 import { UsersService } from "../users/users.service";
 import { UserRegisterDto } from "./user-register.dto";
 import { User } from "../users/entity/user.entity";
