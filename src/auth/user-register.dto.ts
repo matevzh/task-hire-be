@@ -4,13 +4,8 @@ export class UserRegisterDto {
     @IsNotEmpty()
     @IsEmail()
     email: string;
-<<<<<<< HEAD
     @IsString()
     @IsNotEmpty()
-=======
-    @IsNotEmpty()
-    @IsString()
->>>>>>> 696753dd277e2d350d4d760de274cb691df83110
     username: string;
     @IsNotEmpty()
     @IsStrongPassword()
